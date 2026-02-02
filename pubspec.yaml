@@ -1,0 +1,26 @@
+name: plushie_daycare_flutter
+description: "A pet care simulation"
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.8.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+
+  fonts:
+    - family: SourGummy
+      fonts:
+        - asset: fonts/SourGummy-VariableFont_wdth_wght.ttf
+        - asset: fonts/SourGummy-Italic-VariableFont_wdth,wght.ttf
+          style: italic
