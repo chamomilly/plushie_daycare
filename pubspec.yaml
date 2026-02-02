@@ -7,8 +7,11 @@ environment:
   sdk: ^3.8.1
 
 dependencies:
+  flame: ^1.35.0
   flutter:
     sdk: flutter
+  flutter_bloc: ^9.1.1
+  shared_preferences: ^2.5.3
 
 dev_dependencies:
   flutter_test:
@@ -17,6 +20,11 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  assets:
+  - assets/images/
+  - assets/images/andrew_sprite.png
+  - assets/images/chilli_sprite.png
 
   fonts:
     - family: SourGummy

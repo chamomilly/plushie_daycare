@@ -1,6 +1,10 @@
+import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:plushie_daycare_flutter/start_screen.dart';
 import 'package:plushie_daycare_flutter/theme.dart';
+import 'package:plushie_daycare_flutter/game.dart';
+
+final game = PlushieDaycareGame();
 
 void main() {
   runApp(const MainApp());

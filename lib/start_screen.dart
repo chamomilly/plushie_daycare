@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:plushie_daycare_flutter/sprite_manager.dart';
 
 class StartScreen extends StatelessWidget {
   const StartScreen({super.key});
@@ -54,7 +55,25 @@ class _PlushieButton extends StatelessWidget {
               color: Theme.of(context).colorScheme.secondary,
               borderRadius: BorderRadius.circular(2),
             ),
-            child: Center(child: Text(name)),
+            child: Padding(
+              padding: const EdgeInsets.all(2),
+              child: FutureBuilder(
+                future: SpriteManager().loadSprites(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    final sprite = SpriteManager().getSpriteFromName(name);
+                    if (sprite != null) {
+                      return RawImage(
+                        image: sprite,
+                        fit: BoxFit.contain,
+                        filterQuality: FilterQuality.none,
+                      );
+                    }
+                  }
+                  return Center(child: Text(name));
+                },
+              ),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
