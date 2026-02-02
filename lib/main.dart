@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:plushie_daycare_flutter/app_router.dart';
 import 'package:plushie_daycare_flutter/game.dart';
-import 'package:plushie_daycare_flutter/start_screen.dart';
 import 'package:plushie_daycare_flutter/theme.dart';
 
 final game = PlushieDaycareGame();
+final _appRouter = AppRouter();
 
 void main() {
   runApp(const MainApp());
@@ -14,16 +15,10 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       theme: appTheme,
-      home: Scaffold(
-        body: Stack(
-          children: [
-            CustomPaint(painter: CheckerboardPainter(), size: Size.infinite),
-            StartScreen(),
-          ],
-        ),
-      ),
+      routerDelegate: _appRouter.delegate(),
+      routeInformationParser: _appRouter.defaultRouteParser(),
     );
   }
 }
