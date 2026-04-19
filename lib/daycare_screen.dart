@@ -27,8 +27,9 @@ class _DaycareScreenView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final game = DaycareGame(petName: petName);
     final cubit = context.read<DaycareCubit>();
+
+    final game = DaycareGame(petName: petName, daycareCubit: cubit);
 
     return Scaffold(
       body: Stack(

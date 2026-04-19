@@ -5,18 +5,23 @@ import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
+import 'package:plushie_daycare_flutter/bloc/daycare_cubit.dart';
+import 'package:plushie_daycare_flutter/utils/pet_mood.dart';
 
 class DaycareGame extends FlameGame with HasCollisionDetection {
   final String petName;
   late SpriteAnimationComponent pet;
+  final DaycareCubit daycareCubit;
 
-  DaycareGame({required this.petName});
+  DaycareGame({required this.petName, required this.daycareCubit});
 
   @override
   Color backgroundColor() => const Color(0x00000000);
 
   late SpriteAnimation idleAnimation;
   late SpriteAnimation walkAnimation;
+  late SpriteAnimation sleepAnimation;
+  late SpriteAnimation playAnimation;
 
   double speed = 50; // pixels per second
   int direction = 1; // 1 = right, -1 = left
@@ -47,7 +52,7 @@ class DaycareGame extends FlameGame with HasCollisionDetection {
       ),
     );
 
-    final sleepAnimation = SpriteAnimation.fromFrameData(
+    sleepAnimation = SpriteAnimation.fromFrameData(
       spriteSheet,
       SpriteAnimationData.sequenced(
         amount: 8,
@@ -57,7 +62,7 @@ class DaycareGame extends FlameGame with HasCollisionDetection {
       ),
     );
 
-    final playAnimation = SpriteAnimation.fromFrameData(
+    playAnimation = SpriteAnimation.fromFrameData(
       spriteSheet,
       SpriteAnimationData.sequenced(
         amount: 8,
@@ -82,6 +87,35 @@ class DaycareGame extends FlameGame with HasCollisionDetection {
     super.update(dt);
 
     actionTimer -= dt;
+
+    final mood = daycareCubit.state.mood;
+
+    switch (mood) {
+      case PetMood.happy:
+        // more movement, faster walking
+        break;
+
+      case PetMood.hungry:
+        // slow wandering
+        break;
+
+      case PetMood.tired:
+        pet.animation = sleepAnimation;
+        break;
+
+      case PetMood.exhausted:
+        pet.animation = sleepAnimation;
+        // no movement at all
+        break;
+
+      case PetMood.sad:
+        // idle animation, minimal movement
+        break;
+
+      case PetMood.neutral:
+        // normal behaviour
+        break;
+    }
 
     // Pick a new action when timer runs out
     if (actionTimer <= 0) {
